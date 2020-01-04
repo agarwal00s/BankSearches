@@ -2,40 +2,46 @@ import React from "react";
 import { Table } from "react-bootstrap";
 import "./App.css";
 
-function BankDetails() {
-  return (
-    <div className="m-4">
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td colSpan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </Table>
-    </div>
-  );
+const getBankDetails = bankdetails => {
+  const bankrows = bankdetails.map(bank => {
+    return (
+      <tr>
+        <td>{bank.bank_name}</td>
+        <td>{bank.ifsc}</td>
+        <td>{bank.branch}</td>
+        <td>{bank.address}</td>
+        <td>{bank.city}</td>
+        <td>{bank.district}</td>
+        <td>{bank.state}</td>
+      </tr>
+    );
+  });
+  return bankrows;
+};
+
+function BankDetails(props) {
+  if (props.bankdetails.length) {
+    return (
+      <div className="m-4">
+        <Table striped bordered hover size="sm">
+          <thead>
+            <tr>
+              <th>Bank Name</th>
+              <th>IFSC Code</th>
+              <th>Branch</th>
+              <th>Address</th>
+              <th>City</th>
+              <th>District</th>
+              <th>State</th>
+            </tr>
+          </thead>
+          <tbody>{getBankDetails(props.bankdetails)}</tbody>
+        </Table>
+      </div>
+    );
+  } else {
+    return null;
+  }
 }
 
 export default BankDetails;
