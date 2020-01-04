@@ -1,25 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import BankDetails from "./BankDetails";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <h3 className="m-4">Bank-Searches</h3>
+      <label className="ml-4">
+        CITY:
+        <select className="ml-2">
+          <option value="">Select One</option>
+          <option value="DELHI">Delhi</option>
+          <option value="KOLKATA">Kolkata</option>
+          <option selected value="MUMBAI">
+            Mumbai
+          </option>
+          <option value="BANGALORE">Bangalore</option>
+          <option value="CHENNAI">Chennai</option>
+        </select>
+      </label>
+      <label className="ml-4">
+        Search:
+        <input className="ml-2" type="text" />
+      </label>
+      <BankDetails />
+    </React.Fragment>
   );
 }
 
