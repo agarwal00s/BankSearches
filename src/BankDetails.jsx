@@ -5,7 +5,7 @@ import "./App.css";
 const getBankDetails = bankdetails => {
   const bankrows = bankdetails.map(bank => {
     return (
-      <tr>
+      <tr key={bank.ifsc}>
         <td>{bank.bank_name}</td>
         <td>{bank.ifsc}</td>
         <td>{bank.branch}</td>

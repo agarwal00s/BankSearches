@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import BankDetails from "./BankDetails";
 import Axios from "axios";
+import { Pagination } from "./Pagination";
 
 class App extends React.Component {
   constructor() {
@@ -9,32 +10,72 @@ class App extends React.Component {
     this.state = {
       banks: [],
       selectedCity: "",
-      searchBox: ""
+      searchBox: "",
+      currentPage: 1,
+      banksPerPage: 100
     };
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleCityChange = this.handleCityChange.bind(this);
+    this.paginate = this.paginate.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
+    this.sortCurrentView = this.sortCurrentView.bind(this);
+  }
+
+  sortCurrentView(val) {
+    let arr = Object.assign([], this.state.banks);
+    arr.forEach(ele => {
+      let count = 0;
+      if (ele.bank_name.toLowerCase().indexOf(val) !== -1) count += 1;
+      if (ele.ifsc.toLowerCase().indexOf(val) !== -1) count += 1;
+      if (ele.branch.toLowerCase().indexOf(val) !== -1) count += 1;
+      if (ele.address.toLowerCase().indexOf(val) !== -1) count += 1;
+      if (ele.city.toLowerCase().indexOf(val) !== -1) count += 1;
+      if (ele.district.toLowerCase().indexOf(val) !== -1) count += 1;
+      if (ele.state.toLowerCase().indexOf(val) !== -1) count += 1;
+      ele.count = count;
+    });
+    arr.sort((a, b) => (a.count > b.count ? -1 : 1));
+    this.setState({ banks: arr });
   }
 
   handleSearchChange(event) {
-    this.setState({ searchBox: event.target.value });
+    const val = event.target.value;
+    this.setState({ searchBox: val });
+    event.preventDefault();
+    this.sortCurrentView(val.toLowerCase());
   }
   handleCityChange(event) {
+    event.preventDefault();
     const updatedValue = event.target.value;
     this.setState({ selectedCity: updatedValue });
     const cachedRes = localStorage.getItem(updatedValue);
-    if (cachedRes) this.setState({ banks: cachedRes });
-    else {
+    if (cachedRes) {
+      this.setState({ banks: JSON.parse(cachedRes) });
+    } else {
       Axios.get("https://vast-shore-74260.herokuapp.com/banks", {
         params: {
           city: updatedValue
         }
       }).then(res => {
         this.setState({ banks: res.data });
-        localStorage.setItem(updatedValue, res.data);
+        localStorage.setItem(updatedValue, JSON.stringify(res.data));
       });
     }
   }
+  paginate(pageNumber) {
+    this.setState({ currentPage: pageNumber });
+  }
+  handlePageChange(event) {
+    this.setState({ banksPerPage: event.target.value });
+    event.preventDefault();
+  }
   render() {
+    const indexOfLastBank = this.state.currentPage * this.state.banksPerPage;
+    const indexOfFirstBank = indexOfLastBank - this.state.banksPerPage;
+    const currentBanks = this.state.banks.slice(
+      indexOfFirstBank,
+      indexOfLastBank
+    );
     return (
       <React.Fragment>
         <h3 className="m-4">Bank-Searches</h3>
@@ -62,7 +103,21 @@ class App extends React.Component {
             onChange={this.handleSearchChange}
           />
         </label>
-        <BankDetails bankdetails={this.state.banks.slice(0, 5)} />
+        <label className="ml-4">
+          No. of rows:
+          <input
+            className="ml-2"
+            type="number"
+            value={this.state.banksPerPage}
+            onChange={this.handlePageChange}
+          />
+        </label>
+        <Pagination
+          banksPerPage={this.state.banksPerPage}
+          totalBanks={this.state.banks.length}
+          paginate={this.paginate}
+        />
+        <BankDetails bankdetails={currentBanks} />
       </React.Fragment>
     );
   }
