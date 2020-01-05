@@ -7,7 +7,7 @@ export const Pagination = ({
   currentSelectedPage,
   loading
 }) => {
-  if (loading) return <h4>Loading...</h4>;
+  if (loading) return <h4 className="m-4">Loading...</h4>;
   else {
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(totalBanks / banksPerPage); i++) {
@@ -26,11 +26,7 @@ export const Pagination = ({
                   : "page-item"
               }
             >
-              <a
-                onClick={() => paginate(number)}
-                href="!#"
-                className="page-link"
-              >
+              <a onClick={() => paginate(number)} className="page-link">
                 {number}
               </a>
             </li>

@@ -66,6 +66,7 @@ class BankSearch extends React.Component {
         this.setState({ loading: false });
       });
     }
+    this.setState({ currentPage: 1 });
   }
   paginate(pageNumber) {
     this.setState({ currentPage: pageNumber });
@@ -80,6 +81,13 @@ class BankSearch extends React.Component {
     arr[bankIndex].favourites = true;
     this.setState({ banks: arr });
     sessionStorage.setItem(this.state.selectedCity, JSON.stringify(arr));
+    let sessionFav = JSON.parse(sessionStorage.getItem("favourites"));
+    if (sessionFav) {
+      sessionFav.push(arr[bankIndex]);
+      sessionStorage.setItem("favourites", JSON.stringify(sessionFav));
+    } else {
+      sessionStorage.setItem("favourites", JSON.stringify([arr[bankIndex]]));
+    }
   }
   render() {
     const indexOfLastBank = this.state.currentPage * this.state.banksPerPage;
@@ -91,6 +99,7 @@ class BankSearch extends React.Component {
     return (
       <React.Fragment>
         <h3 className="m-4">Bank-Searches</h3>
+
         <label className="ml-4">
           CITY:
           <select
@@ -124,6 +133,9 @@ class BankSearch extends React.Component {
             onChange={this.handlePageChange}
           />
         </label>
+        <a href="/favourite" className="ml-4 btn btn-outline-primary">
+          Go to Favourites
+        </a>
         <Pagination
           banksPerPage={this.state.banksPerPage}
           totalBanks={this.state.banks.length}
