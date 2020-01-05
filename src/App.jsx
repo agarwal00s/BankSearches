@@ -7,7 +7,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/favourite">
+        <Route exact path="/favourite">
           <Favourite />
         </Route>
         <Route path="/">
