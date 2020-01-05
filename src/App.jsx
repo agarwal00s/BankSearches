@@ -7,10 +7,10 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/favourite">
+        <Route path={process.env.PUBLIC_URL + "/favourite"}>
           <Favourite />
         </Route>
-        <Route path="/">
+        <Route path={process.env.PUBLIC_URL + "/"}>
           <BankSearch />
         </Route>
       </Switch>
