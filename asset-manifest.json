@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/Bank-Searches/static/css/main.27fd15f6.chunk.css",
+    "main.js": "/Bank-Searches/static/js/main.c17667b0.chunk.js",
+    "main.js.map": "/Bank-Searches/static/js/main.c17667b0.chunk.js.map",
+    "runtime-main.js": "/Bank-Searches/static/js/runtime-main.933f08aa.js",
+    "runtime-main.js.map": "/Bank-Searches/static/js/runtime-main.933f08aa.js.map",
+    "static/js/2.487cb8b6.chunk.js": "/Bank-Searches/static/js/2.487cb8b6.chunk.js",
+    "static/js/2.487cb8b6.chunk.js.map": "/Bank-Searches/static/js/2.487cb8b6.chunk.js.map",
+    "index.html": "/Bank-Searches/index.html",
+    "precache-manifest.0ac9eb330d9fa44e579fbd33c645fb94.js": "/Bank-Searches/precache-manifest.0ac9eb330d9fa44e579fbd33c645fb94.js",
+    "service-worker.js": "/Bank-Searches/service-worker.js",
+    "static/css/main.27fd15f6.chunk.css.map": "/Bank-Searches/static/css/main.27fd15f6.chunk.css.map",
+    "static/js/2.487cb8b6.chunk.js.LICENSE": "/Bank-Searches/static/js/2.487cb8b6.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.933f08aa.js",
+    "static/js/2.487cb8b6.chunk.js",
+    "static/css/main.27fd15f6.chunk.css",
+    "static/js/main.c17667b0.chunk.js"
+  ]
+}
