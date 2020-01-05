@@ -6,15 +6,12 @@ import Favourite from "./Favourite";
 function App() {
   return (
     <Router>
-      {/* <Link to="/">Bank Search</Link>
-        <Link to="/favourite">Favourites</Link> */}
-
       <Switch>
-        <Route exact path="/">
-          <BankSearch />
-        </Route>
         <Route path="/favourite">
           <Favourite />
+        </Route>
+        <Route path="/">
+          <BankSearch />
         </Route>
       </Switch>
     </Router>
